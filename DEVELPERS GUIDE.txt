@@ -1,0 +1,92 @@
+#===================#
+| Developer's guide |
+#===================#
+
+
+This document is aimed at developers of multivim, and provides an overview of the main
+program flow.
+
+
+How to contribute
+=================
+
+First of all: thanks for wanting to contribute! \o/ Right now, the best way to
+contribute is to find a NormalVisualCommand or an Operator that hasn't been implemented
+yet (search for "NotImplemented.warn()" in the source code), and implement it, using
+previously implemented commands/operators as a guide. 
+
+
+How to get it running
+=====================
+
+There should be no external dependencies, so as long as you have java with swing,
+everything should just work out of the box.
+
+
+How does it work?
+=================
+
+Multivim is server-client oriented. Clients send keystrokes to the server, which
+announces them to every connected client, so that each client can perform the actions
+associated with the keystrokes locally. 
+
+
+Here is the basic flow of the networking logic:
+
+1. A key is pressed at client A.
+2. A key press event is sent from client A to the server.
+3. The server processes the key press event locally.
+4. The server sends the same key press event to all the attached clients, including
+   client A.
+5. Each client processes the key press event locally, including client A.
+
+
+This means that the server decides which key presses from which clients actually occur,
+and in which order. This is done to maintain consistency.
+
+
+Main entry point
+================
+
+Multivim can run as a dedicated server using Server as the main entry class, as a
+simple client using Client as the main entry class, or as a server/client hybrid using
+Main as the main entry class. In hybrid mode, a server is started if no server is
+already running (i.e. the port is free), and a client is started.
+
+
+Command parsing/handling
+========================
+ 
+Vim has *many* commands, all of which multivim should implement correctly. Being a modal
+text editor, commands are handled differently from mode to mode.
+
+Normal mode & Visual mode
+-------------------------
+
+Normal mode and visual mode commands are handled in the same way, as normal mode is more
+or less a special case of visual mode. Commands are mostly of the form:
+
+[count] [register] [operator] [count] [movement]
+
+where most of the parts can be omitted. Currently, count is not handled by multivim, but
+it will be implemented down the line. When a key press event is received for a user while
+in normal or visual mode, the appropriate NormalVisualCommand object will be selected by
+doing a lookup in the NormalVisualCommandTable. The NormalVisualCommand will be executed
+using the current active Operator of the user.
+
+Insert mode
+-----------
+
+Insert mode handling is currently incomplete.
+
+Other modes
+-----------
+
+Handling of other modes is currently incomplete.
+
+
+
+Contact
+=======
+
+If you need for me for anything, I can be reached at: sigvefarstad@gmail.com

@@ -1,0 +1,50 @@
+<command> ::= <mode>
+
+
+<mode> ::= <normal_mode> <normal_mode_cmd>
+		|  <insert_mode> <insert_mode_cmd>
+		| <visual_mode> <visual_mode_cmd>
+		| <visual_line_mode> <visual_line_mode_cmd>
+		| <command_mode> <command_mode_cmd>
+
+
+<normal_mode_cmd> ::= {<count>} {<register>} <normal_mode_cmd_motionless>
+				   |  {<count>} {<register>} <normal_mgTgode_cmd_motion>
+				   
+
+<normal_mode_cmd_motionless> ::= <operator>
+
+<normal_mode_cmd_motion> ::= <operator> {<count>} <operator_motion>
+						  |  <operatorless_motion>
+
+
+
+<insert_mode_cmd> ::= <non-esc-string> <ESC>
+
+
+<visual_mode_cmd> ::= <operator> | {<count>} <motion>
+
+
+<visual_line_mode_cmd> ::= <operator> | {<count>} <motion>
+
+<command_mode> ::= <non-enter-string> <enter>
+
+
+<motion> ::= h | <LEFT> | <BACKSPACE> | <CTRL-H> | l | <RIGHT> | <SPACE>
+          |  0 | <HOME> | ^ | $ | <END> | g_ | g0 | g<HOME> | g^ | gm | g$ | g<END> 
+          |  '|' | f<char> | F<char> | t<char> | T<char> | ; | , | k | <UP> | <CTRL-P>
+          |  j | <DOWN> | <CTRL-J> | <NL> | <CTRL-N> | gk | g<UP> | gj | g<DOWN> | - | +
+          |  <CTRL-M> | <CR> | _ | G | <CTRL-END> | <CTRL-HOME> | gg | :<range> | {<count>}%
+          | <SUPER-RIGHT> | w | <CTRL-RIGHT> | W | e | E | <SUPER-LEFT> | b | <CTRL-LEFT> | B
+          | ge | gE | ( | ) | '{' | '}' | ]] | ][ | [[ | [] | aw | iw | aW | iW
+          
+<operatorless_motion>
+           
+
+<operator> ::= x | dd | D | J | ~ | .
+
+<count> ::= {<digit>}+
+<digit> ::= 1|2|3|4|5|6|7|8|9|0
+
+<register> ::= "<registerName>
+<registerName> ::= a|b|c|d|e... etc
