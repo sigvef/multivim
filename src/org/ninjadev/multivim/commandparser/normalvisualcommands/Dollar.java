@@ -1,10 +1,10 @@
 package org.ninjadev.multivim.commandparser.normalvisualcommands;
 
+import java.io.IOException;
 import java.util.EnumSet;
 
+import org.ninjadev.multivim.User;
 import org.ninjadev.multivim.commandparser.NormalVisualFlag;
-import org.ninjadev.multivim.notimplemented.NotImplemented;
-
 import com.googlecode.lanterna.input.Key;
 
 public class Dollar extends NormalVisualCommand{
@@ -13,7 +13,7 @@ public class Dollar extends NormalVisualCommand{
 		super(commandChar, flags, arg);
 	}
 
-	public void executeCommand() {
-		NotImplemented.warn();
-	}
+	public void executeCommand(User user) throws IOException {
+		new EndLineMovement().move(user.activeCursor(), 1, user.getOperator());
+	};
 }
