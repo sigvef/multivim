@@ -85,7 +85,7 @@ public class Buffer implements Serializable{
 			join(cursor.data.position.row-1, cursor.data.position.row);
 			cursor.data.position.row--;
 		}else{
-			lines.set(cursor.data.position.row, line.substring(0, cursor.data.position.column) + line.substring(cursor.data.position.column+1));
+			lines.set(cursor.data.position.row, line.substring(0, cursor.data.position.column-1) + line.substring(cursor.data.position.column));
 		}
 	}
 
@@ -98,7 +98,7 @@ public class Buffer implements Serializable{
 		while(operatorCursor.data.position.row != cursor.data.position.row ||
 		      operatorCursor.data.position.column != cursor.data.position.column){
 			System.out.println("delete");
-			delete(cursor);
+			delete(operatorCursor);
 			operatorCursor.backward();
 		}
 	}
