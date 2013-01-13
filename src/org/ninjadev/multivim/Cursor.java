@@ -99,31 +99,10 @@ public class Cursor implements Comparable {
 		return buffer.getChar(data.position.row, data.position.column);
 	}
 	
-	private Object getNextCharacter() {
+	public Object getNextCharacter() {
 		return buffer.getChar(data.position.row, data.position.column+1);
 	}
 
-	public boolean oneleft() {
-		if(data.position.column == 0){
-			return false;
-		}
-		
-		data.position.column--;
-		desiredColumn = data.position.column;
-		return true;
-	}
-	
-	public boolean oneright(){
-		if(getCharacter() == null){
-			return false;
-		}
-		if(getNextCharacter() == null){
-			return false;
-		}
-		data.position.column++;
-		desiredColumn = data.position.column;
-		return true;
-	}
 	
 	public boolean cursor_up(int n){
 		if(n > 0){

@@ -85,7 +85,7 @@ public class Buffer implements Serializable{
 			join(cursor.data.position.row-1, cursor.data.position.row);
 			cursor.data.position.row--;
 		}else{
-			lines.set(cursor.data.position.row, line.substring(0, cursor.data.position.column-1) + line.substring(cursor.data.position.column));
+			lines.set(cursor.data.position.row, line.substring(0, cursor.data.position.column) + line.substring(cursor.data.position.column+1));
 		}
 	}
 

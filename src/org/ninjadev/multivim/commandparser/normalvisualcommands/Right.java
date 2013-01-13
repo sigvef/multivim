@@ -5,8 +5,7 @@ import java.util.EnumSet;
 
 import org.ninjadev.multivim.User;
 import org.ninjadev.multivim.commandparser.NormalVisualFlag;
-import org.ninjadev.multivim.server.Server;
-import org.ninjadev.multivim.server.net.SendMessage;
+import org.ninjadev.multivim.movement.RightMovement;
 
 import com.googlecode.lanterna.input.Key;
 
@@ -17,6 +16,6 @@ public class Right extends NormalVisualCommand{
 	}
 
 	public void executeCommand(User user) throws IOException {
-		user.activeCursor().oneright();
+		new RightMovement().move(user.activeCursor(), 1, user.operator);
 	}
 }
