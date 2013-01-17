@@ -20,6 +20,8 @@ import com.googlecode.lanterna.TerminalFacade;
 import com.googlecode.lanterna.input.Key;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.terminal.Terminal;
+import com.googlecode.lanterna.terminal.Terminal.ResizeListener;
+import com.googlecode.lanterna.terminal.TerminalSize;
 import com.googlecode.lanterna.terminal.Terminal.Color;
 import com.googlecode.lanterna.terminal.swing.SwingTerminal;
 
@@ -36,6 +38,7 @@ public class Client {
 	public OSD osd;
 
 	public MessageHandler messageHandler;
+	private int screenWidth;
 
 	public void startKeyboardHandlerThread(){
 		new Thread(new Runnable(){
@@ -112,7 +115,7 @@ public class Client {
 		}
 		
 		/* render status line at bottom */
-		screen.putString(0, 29, "-- "+selfUser.getMode()+" --                                                                                                                 ",
+		screen.putString(0, screen.getTerminalSize().getColumns(), "-- "+selfUser.getMode()+" --                                                                                                                 ",
 				Color.WHITE, Color.BLACK);
 			
 		screen.refresh();
@@ -121,6 +124,16 @@ public class Client {
 	public Client(Socket socket) throws IOException{
 
 		terminal = TerminalFacade.createSwingTerminal();
+		terminal.addResizeListener(new ResizeListener() {
+			public void onResized(TerminalSize newSize) {
+				for(ViewPort viewPort : selfUser.viewPorts){
+					viewPort.setWidth(newSize.getColumns());
+					viewPort.setHeight(newSize.getRows());
+				}
+				render();
+			}
+		});
+		
 		screen = TerminalFacade.createScreen(terminal);
 		screen.startScreen();
 		terminal.setCursorVisible(false);

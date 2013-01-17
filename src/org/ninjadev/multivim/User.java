@@ -31,6 +31,8 @@ public class User {
 	public ArrayList<ViewPort> viewPorts;
 	public AbstractOperator operator;
 	
+	public ArrayList<Key> commandString;
+	
 	static int userIdCounter = 0;
 
 	public User(){
@@ -38,6 +40,8 @@ public class User {
 		data.name = "Anonymous"+ (int)(Math.random()*1000);
 		data.userId = userIdCounter++;
 		data.color = getBGColor();
+		
+		commandString = new ArrayList<Key>();
 		
 		viewPorts = new ArrayList<ViewPort>();
 		activeViewPort = new ViewPort();
@@ -76,7 +80,11 @@ public class User {
 	}
 
 	public void processCommand(Key command) throws IOException{
-
+		
+		commandString.add(command);
+		
+		//command = commandString.get(0);
+		
 		switch(mode){
 			case NORMAL:
 				System.out.println("now doing nvc: "+command);

@@ -36,4 +36,12 @@ public class StringUtils {
 		}
 		return CharacterClass.PUNCTUATION;
 	}
+
+	public static String repeat(String string, int columns) {
+		StringBuilder sb = new StringBuilder();
+		while(columns --> 0){
+			sb.append(string);
+		}
+		return sb.toString();
+	}
 }

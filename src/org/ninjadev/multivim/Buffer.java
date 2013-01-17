@@ -18,6 +18,7 @@ public class Buffer implements Serializable{
 		insertLine(0,"");
 	}
 	
+
 	public void insertLine(int index, String line) throws IOException{
 		lines.add(index, line);
 	}
@@ -54,7 +55,7 @@ public class Buffer implements Serializable{
 		return line;
 	}
 
-	public void readFile(String pathname) throws IOException {
+	public Buffer readFile(String pathname) throws IOException {
 		BufferedReader file = new BufferedReader(new FileReader(new File(pathname)));
 		int i=0;
 		String line;
@@ -63,6 +64,7 @@ public class Buffer implements Serializable{
 		}
 		
 		file.close();
+		return this;
 	}
 
 	public String getChar(int y, int x) {
